@@ -1,36 +1,37 @@
-import z from 'zod'
+import z from "zod";
 
 export interface SignupInputDTO {
-  name: string,
-  email: string,
-  password: string
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface SignupOutputDTO {
-  token: string
+  token: string;
 }
 
-// export const SignupSchema = z.object({
-//   name: z.string().min(2),
-//   email: z.string().email(),
-//   password: z.string().min(5)
-// }).transform(data => data as SignupInputDTO)
-
-export const SignupSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  password: z.string().regex(/^(?=.*[A-Za-z]{5})(?=.*\d{2}).{7,}$/)
-}).transform(data => data as SignupInputDTO)
-
-// export const SignupSchema = z.object({
-//   name: z.string().min(2),
-//   email: z.string().email(),
-//   password: z.string().refine(value => {
-//     const hasMinimumLength = value.length >= 7;
-//     const hasTwoNumbers = /\d.*\d/.test(value);
-//     const hasFiveLetters = /[a-zA-Z].*[a-zA-Z].*[a-zA-Z].*[a-zA-Z].*[a-zA-Z]/.test(value);
-//     return hasMinimumLength && hasTwoNumbers && hasFiveLetters;
-//   }, {
-//     message: 'Password must have at least 7 characters, 2 numbers and 5 letters'
-//   })
-// }).transform(data => data as SignupInputDTO);
+export const SignupSchema = z
+  .object({
+    name: z
+      .string({
+        required_error: "'name' é obrigatório",
+        invalid_type_error: "'name' deve ser do tipo string",
+      })
+      .min(2, "'name' deve possuir no mínimo 2 caracteres"),
+    email: z
+      .string({
+        required_error: "'email' é obrigatório",
+        invalid_type_error: "'email' deve ser do tipo string",
+      })
+      .email("'email' inválido"),
+    password: z
+      .string({
+        required_error: "'password' é obrigatório",
+        invalid_type_error: "'password' deve ser do tipo string",
+      })
+      .regex(
+        /^(?=.*[A-Za-z]{5})(?=.*\d{2}).{7,}$/,
+        "'password' deve ter pelo menos 7 caracteres, incluindo pelo menos 2 números e 5 letras."
+      ),
+  })
+  .transform((data) => data as SignupInputDTO);
