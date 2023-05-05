@@ -1,110 +1,107 @@
 export enum USER_ROLES {
   NORMAL = "NORMAL",
-  ADMIN = "ADMIN"
-}
-
-export interface UserDB {
-  id: string,
-  name: string,
-  email: string,
-  password: string,
-  role: USER_ROLES,
-  created_at: string
-}
-
-// é o modelo de User que o front receberá (sem password e createdAt camelCase)
-export interface UserModel {
-  id: string,
-  name: string,
-  email: string,
-  role: USER_ROLES,
-  createdAt: string
+  ADMIN = "ADMIN",
 }
 
 export interface TokenPayload {
-  id: string,
-  name: string,
-  role: USER_ROLES
+  id: string;
+  name: string;
+  role: USER_ROLES;
 }
 
-export class User {    
-    constructor(
-        private id: string,
-        private name: string,
-        private email: string,
-        private password: string,
-        private role: USER_ROLES,
-        private createdAt: string
-    ) {}
+export interface UserDB {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: USER_ROLES;
+  created_at: string;
+}
 
-    public getId(): string {
-        return this.id
-    }
-    
-    public setId(value: string): void {
-        this.id = value
-    }
+export interface UserModel {
+  id: string;
+  name: string;
+  email: string;
+  role: USER_ROLES;
+  createdAt: string;
+}
 
-    public getName(): string {
-        return this.name
-    }
+export class User {
+  constructor(
+    private id: string,
+    private name: string,
+    private email: string,
+    private password: string,
+    private role: USER_ROLES,
+    private createdAt: string
+  ) {}
 
-    public setName(value: string): void {
-        this.name = value
-    }
+  get getId(): string {
+    return this.id;
+  }
 
-    public getEmail(): string {
-        return this.email
-    }
+  set setId(value: string) {
+    this.id = value;
+  }
 
-    public setEmail(value: string): void {
-        this.email = value
-    }
+  get getName(): string {
+    return this.name;
+  }
 
-    public getPassword(): string {
-        return this.password
-    }
+  set setName(value: string) {
+    this.name = value;
+  }
 
-    public setPassword(value: string): void {
-        this.password = value
-    }
+  get getEmail(): string {
+    return this.email;
+  }
 
-    public getRole(): USER_ROLES {
-        return this.role
-    }
+  set setEmail(value: string) {
+    this.email = value;
+  }
 
-    public setRole(value: USER_ROLES): void {
-        this.role = value
-    }
+  get getPassword(): string {
+    return this.password;
+  }
 
-    public getCreatedAt(): string {
-        return this.createdAt
-    }
+  set setPassword(value: string) {
+    this.password = value;
+  }
 
-    public setCreatedAt(value: string): void {
-        this.createdAt = value
-    }
+  get getRole(): USER_ROLES {
+    return this.role;
+  }
 
-    // para facilitar nossa vida, temos o método que gera um UserDB
-    public toDBModel(): UserDB {
-        return {
-            id: this.id,
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            role: this.role,
-            created_at: this.createdAt
-        }
-    }
+  set setRole(value: USER_ROLES) {
+    this.role = value;
+  }
 
-    // para facilitar nossa vida, temos o método que gera um UserModel
-    public toBusinessModel(): UserModel {
-        return {
-            id: this.id,
-            name: this.name,
-            email: this.email,
-            role: this.role,
-            createdAt: this.createdAt
-        }
-    }
+  get getCreatedAt(): string {
+    return this.createdAt;
+  }
+
+  set setCreatedAt(value: string) {
+    this.createdAt = value;
+  }
+
+  public toDBModel(): UserDB {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      role: this.role,
+      created_at: this.createdAt,
+    };
+  }
+
+  public toBusinessModel(): UserModel {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      role: this.role,
+      createdAt: this.createdAt,
+    };
+  }
 }
