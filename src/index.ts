@@ -23,11 +23,9 @@ app.get("/ping", async (req: Request, res: Response) => {
     res.status(200).send({ message: "Pong!" });
   } catch (error) {
     console.log(error);
-
     if (req.statusCode === 200) {
       res.status(500);
     }
-
     if (error instanceof Error) {
       res.send(error.message);
     } else {

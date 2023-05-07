@@ -3,6 +3,7 @@ import { BaseDatabase } from "./BaseDatabase";
 
 export class UserDatabase extends BaseDatabase {
   public static TABLE_USERS = "users";
+  public static TABLE_LIKES_DISLIKES = "likes_dislikes";
 
   public async insertUser(newUserDB: UserDB): Promise<void> {
     await BaseDatabase.connection(UserDatabase.TABLE_USERS).insert(newUserDB);
@@ -12,7 +13,6 @@ export class UserDatabase extends BaseDatabase {
     const [userDB]: UserDB[] | undefined[] = await BaseDatabase.connection(
       UserDatabase.TABLE_USERS
     ).where({ email });
-
     return userDB;
   }
 
@@ -20,13 +20,11 @@ export class UserDatabase extends BaseDatabase {
     const [userDB]: UserDB[] | undefined[] = await BaseDatabase.connection(
       UserDatabase.TABLE_USERS
     ).where({ id });
-
     return userDB;
   }
 
   public async findUsers(q: string | undefined): Promise<UserDB[]> {
     let usersDB;
-
     if (q) {
       const result: UserDB[] = await BaseDatabase.connection(
         UserDatabase.TABLE_USERS
@@ -37,16 +35,8 @@ export class UserDatabase extends BaseDatabase {
       const result: UserDB[] = await BaseDatabase.connection(
         UserDatabase.TABLE_USERS
       );
-
       usersDB = result;
     }
-
     return usersDB;
-  }
-
-  public async deleteUserById(idToDelete: string): Promise<void> {
-    await BaseDatabase.connection(UserDatabase.TABLE_USERS)
-      .delete()
-      .where({ id: idToDelete });
   }
 }

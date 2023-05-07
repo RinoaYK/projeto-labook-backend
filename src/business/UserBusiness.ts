@@ -1,3 +1,4 @@
+import { PostDatabase } from "../database/PostDatabase";
 import { UserDatabase } from "../database/UserDatabase";
 import {
   DeleteUsersInputDTO,
@@ -8,6 +9,8 @@ import { LoginInputDTO, LoginOutputDTO } from "../dtos/user/login.dto";
 import { SignupInputDTO, SignupOutputDTO } from "../dtos/user/signup.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { LikeDislikeDB, PostDB } from "../models/Post";
 import { TokenPayload, USER_ROLES, User } from "../models/User";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
@@ -138,50 +141,6 @@ export class UserBusiness {
     });
 
     const output: GetUsersOutputDTO = users;
-
-    return output;
-  };
-
-  public deleteUser = async (
-    input: DeleteUsersInputDTO
-  ): Promise<DeleteUsersOutputDTO> => {
-    const { idToDelete, token } = input;
-
-    const payload = this.tokenManager.getPayload(token);
-
-    if (payload === null) {
-      throw new BadRequestError("'token' inválido!");
-    }
-
-    if (payload.role !== USER_ROLES.ADMIN) {
-      throw new BadRequestError("Somente admins podem deletar usuários!");
-    }
-
-    const userDB = await this.userDatabase.findUserById(idToDelete);
-
-    if (!userDB) {
-      throw new NotFoundError("id a ser deletado não existe");
-    }
-
-    const user = new User(
-      userDB.id,
-      userDB.name,
-      userDB.email,
-      userDB.password,
-      userDB.role,
-      userDB.created_at
-    );
-
-    await this.userDatabase.deleteUserById(idToDelete);
-
-    const output: DeleteUsersOutputDTO = {
-      message: "Deleção realizada com sucesso",
-      user: {
-        id: user.getId,
-        name: user.getName,
-        email: user.getEmail,
-      },
-    };
 
     return output;
   };
