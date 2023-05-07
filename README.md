@@ -39,7 +39,9 @@ O projeto foi desenvolvido seguindo as melhores práticas de programação e uti
         - Login
             - Efetua o login de uma pessoa cadastrada.
         - Get all users        
-            - Retorna todas as pessoas cadastradas. Pode ser enviado uma query, q fará uma busca do parâmetro no nome do usuário, retornando o/os usuários se existirem. **Somente admins tem acesso a esse endpoint.**
+            - Retorna todas as pessoas cadastradas.
+            - Pode ser enviado uma query, q fará uma busca do parâmetro no nome do usuário, retornando o/os usuários se existirem.
+            - **Somente admins tem acesso a esse endpoint.**
     - **Posts:**    
         - Create Post
             - Adiciona um post.
