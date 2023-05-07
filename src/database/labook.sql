@@ -89,3 +89,5 @@ UPDATE posts SET likes = 2 WHERE id = "p003";
 UPDATE posts SET dislikes = 1 WHERE id = "p003";
 
 UPDATE posts SET likes = 3 WHERE id = "p004";
+
+UPDATE posts SET likes = 1 WHERE id = "24737d89-7ac7-4e60-9523-b2d5a7bd1281";

@@ -8,6 +8,17 @@ export interface PostDB {
   updated_at: string;
 }
 
+export interface PostDBWithCreatorName {
+  id: string;
+  creator_id: string;
+  content: string;
+  likes: number;
+  dislikes: number;
+  created_at: string;
+  updated_at: string;
+  creator_name: string;
+}
+
 export interface PostModel {
   id: string;
   content: string;
@@ -19,6 +30,17 @@ export interface PostModel {
     id: string;
     name: string;
   };
+}
+
+export interface LikeDislikeDB {
+  user_id: string;
+  post_id: string;
+  like: number;
+}
+
+export enum POST_LIKE {
+  LIKED = "already like",
+  DISLIKED = "already dislike",
 }
 
 export class Post {
@@ -41,11 +63,11 @@ export class Post {
     this.id = value;
   }
 
-  get getName(): string {
+  get getContent(): string {
     return this.content;
   }
 
-  set setName(value: string) {
+  set setContent(value: string) {
     this.content = value;
   }
 
